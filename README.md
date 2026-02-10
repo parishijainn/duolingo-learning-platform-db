@@ -1,88 +1,94 @@
-Duolingo Learning Platform Database
+# Duolingo Learning Platform Database
 
-A fully implemented relational database system for a Duolingo-style learning platform.
-This project includes conceptual and relational modeling, BCNF normalization, SQL schema creation, CSV-based data ingestion, and Python scripts that interact with PostgreSQL to demonstrate both operational and analytical functionality.
+A fully implemented relational database system modeling a Duolingo-style language learning platform. This project includes conceptual design, BCNF normalization, SQL schema implementation, CSV-based data ingestion, and Python scripts that interact with PostgreSQL to demonstrate operational and analytical functionality.
 
-Overview
+---
 
-This repository contains the complete lifecycle of a database development project. It models real platform features such as:
+## Overview
 
-Learner progress tracking
+This project demonstrates the complete lifecycle of relational database development, including design, implementation, and analysis. It models real-world platform functionality such as:
 
-Courses, lessons, and exercises
+- Learner progress tracking  
+- Courses, lessons, and exercises  
+- Study planning and adherence evaluation  
+- Messaging between users  
+- Leaderboards and ranking systems  
+- Instructor reporting  
+- Subscription tracking and automated deactivation  
 
-Study planning and adherence evaluation
+The system was developed as part of a database design course and showcases relational modeling, SQL programming, and Python–PostgreSQL integration.
 
-Messaging between users
+---
 
-Leaderboards and ranking systems
+## Features
 
-Instructor reporting
+### Relational schema
 
-Subscription tracking and automated deactivation
+The database includes entities such as:
 
-The project was developed for a database design course and demonstrates relational design, SQL programming, and Python-database integration.
+- **Users:** Learners, Instructors, Administrators  
+- **Learning structure:** Courses, Lessons, Exercises  
+- **Progress tracking:** Lesson completion and timestamps  
+- **Planning:** Planned study sessions and adherence evaluation  
+- **Competition:** Leaderboards and rankings  
+- **Communication:** Messaging between users  
+- **Subscriptions:** Automated deactivation using triggers  
+- **Reporting:** Instructor performance and learner analytics  
 
-Features
-1. Relational Schema
+All relations were derived from functional dependencies and normalized to **BCNF**. Foreign key constraints enforce referential integrity.
 
-The schema includes:
+---
 
-Users, Learners, Instructors, Administrators
+### SQL implementation
 
-Courses, Lessons, Exercises
+The repository includes:
 
-Progress tracking across lessons and dates
+- `create.sql` — database schema definitions and constraints  
+- `initialize.sql` — database reset and automated CSV data loading  
+- `show_all.sql` — script to inspect database contents  
+- CSV files for all relations, enabling reproducible dataset initialization  
 
-Planned study sessions
+This ensures the database can be recreated consistently.
 
-Leaderboards and ranking
+---
 
-Messages
+### Python user story implementations
 
-Subscriptions with automated deactivation trigger
+Ten standalone Python scripts (using `psycopg2`) demonstrate real application functionality:
 
-Reports for instructors
+**Operational functionality**
 
-All relations were derived from functional dependencies and normalized to BCNF.
-Foreign key constraints enforce referential integrity.
+- Track learner progress  
+- Display leaderboards and rankings  
+- Review individual learner progress  
+- Messaging between users  
 
-2. SQL Implementation
+**Analytical functionality**
 
-This repository contains:
+- Analyze learner engagement  
+- Evaluate study plan adherence  
+- Generate instructor reports  
+- Analyze subscription growth trends  
+- Regional engagement analysis  
 
-create.sql – table definitions and constraints
+Each script prints executed SQL queries and results for clarity and transparency.
 
-initialize.sql – automated database reset and CSV import
+---
 
-show_all.sql – script for inspecting database contents
+## Tech stack
 
-CSV files for all relations, enabling reproducible dataset loading
+**Database:** PostgreSQL  
+**Query language:** SQL  
+**Programming language:** Python  
+**Database integration:** psycopg2  
+**Data ingestion:** CSV using PostgreSQL COPY  
 
-3. Python User Story Implementations
+---
 
-Ten Python scripts (using psycopg2) demonstrate both operational and analytical tasks:
+## Repository structure
 
-Tracking and analyzing learner progress
-
-Displaying leaderboards and rankings
-
-Evaluating planned study sessions
-
-Generating instructor reports
-
-Messaging functionality
-
-Engagement analysis by region
-
-Subscription growth analytics
-
-Trigger-based subscription deactivation
-
-Each script is standalone and prints executed SQL and results for clarity.
-
-Repository Structure
-/
+```
+DuolingoDatabase/
 ├── create.sql
 ├── initialize.sql
 ├── show_all.sql
@@ -109,21 +115,86 @@ Repository Structure
 │   ├── us9-view-subscription-growth.py
 │   └── us10-deactivate-accounts.py
 └── Project_Report.pdf
+```
 
-Skills Demonstrated
+---
 
-Relational schema design
+## Getting started
 
-Functional dependency analysis
+### 1. Create the database
 
-BCNF normalization
+Open PostgreSQL and create a new database:
 
-SQL schema creation and referential constraints
+```sql
+CREATE DATABASE duolingo_platform;
+```
 
-CSV and COPY-based data loading
+---
 
-Complex SQL (joins, aggregates, window functions)
+### 2. Initialize the schema
 
-Trigger and stored procedure development
+Run the schema creation script:
 
-Python–PostgreSQL integration
+```bash
+psql -d duolingo_platform -f create.sql
+```
+
+---
+
+### 3. Load data
+
+Run the initialization script:
+
+```bash
+psql -d duolingo_platform -f initialize.sql
+```
+
+This loads all CSV data into the database.
+
+---
+
+### 4. Run Python scripts
+
+Install psycopg2:
+
+```bash
+pip install psycopg2-binary
+```
+
+Run a user story script:
+
+```bash
+python python/us1-track-progress-simple-operational.py
+```
+
+Each script connects to PostgreSQL and demonstrates database functionality.
+
+---
+
+## Concepts demonstrated
+
+This project demonstrates core database engineering concepts:
+
+- Relational schema design  
+- Functional dependency analysis  
+- BCNF normalization  
+- Referential integrity enforcement  
+- SQL joins, aggregates, and analytical queries  
+- Trigger and stored procedure implementation  
+- CSV-based data ingestion  
+- Python–PostgreSQL integration  
+
+---
+
+## Academic context
+
+Developed as part of a university database design course to demonstrate full-stack relational database development from conceptual design to implementation and analytics.
+
+---
+
+## Author
+
+Parishi Jain  
+Carnegie Mellon University  
+
+---
